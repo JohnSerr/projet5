@@ -1,3 +1,25 @@
-p5_todolist_homepage:
-    path:     /
-    defaults: { _controller: P5TodolistBundle:Default:index }
+p5_todolist_view:
+    path:    /home/todolist/{membreid}
+    defaults:  
+        _controller: P5TodolistBundle:todolist:index
+    requirements:
+        membreid: \d+
+
+
+p5_todolist_add:
+    path:    /home/todolist/{membreid}/add
+    defaults:
+      _controller: P5TodolistBundle:todolist:add
+    requirements:
+        membreid: \d+  
+    
+
+
+p5_todolist_edit: 
+    path: /home/todolist/{membreid}/edit/{id}
+    defaults:
+      _controller: P5TodolistBundle:todolist:edit
+    requirements:
+        membreid: \d+
+        id: \d+
+

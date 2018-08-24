@@ -1,0 +1,226 @@
+<?php
+
+namespace P5\TodolistBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * todolist
+ *
+ * @ORM\Table(name="todolist")
+ * @ORM\Entity(repositoryClass="P5\TodolistBundle\Repository\todolistRepository")
+ */
+class todolist
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="author", type="string", length=255)
+     */
+    private $author;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateofend", type="datetime", nullable=true)
+     */
+    private $dateofend;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="authorid", type="integer")
+     */
+    private $authorid;
+
+    public function __contruct()
+    {
+        $this->date = new \
+        DateTime();
+    }
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return todolist
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return todolist
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     *
+     * @return todolist
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return todolist
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set dateofend
+     *
+     * @param \DateTime $dateofend
+     *
+     * @return todolist
+     */
+    public function setDateofend($dateofend)
+    {
+        $this->dateofend = $dateofend;
+
+        return $this;
+    }
+
+    /**
+     * Get dateofend
+     *
+     * @return \DateTime
+     */
+    public function getDateofend()
+    {
+        return $this->dateofend;
+    }
+
+    /**
+     * Set authorid
+     *
+     * @param integer $authorid
+     *
+     * @return todolist
+     */
+    public function setAuthorid($authorid)
+    {
+        $this->authorid = $authorid;
+
+        return $this;
+    }
+
+    /**
+     * Get authorid
+     *
+     * @return int
+     */
+    public function getAuthorid()
+    {
+        return $this->authorid;
+    }
+}
+
