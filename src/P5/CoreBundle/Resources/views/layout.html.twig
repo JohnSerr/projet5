@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>{% block title %}Smart Reminder{% endblock %}</title>
+	{% block stylesheets %}
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	{% endblock %}
+
+</head>
+<body>
+	<div class="container">
+		<header>
+			<div id="header">
+				<h1>Smart Reminder</h1>
+				<p>
+					La Todolist qui vous rapelle qu'elle existe !
+				</p>
+			</div>	
+		</header>
+
+		<div id="welcome_container">
+			<div id="fullmenu">
+				<nav>
+					<div id="main_menu">
+						<ul>
+							<li><a href="{{ path('p5_core_home') }}">Accueil</a></li></li>
+							<li><a href="#">Inscription</a></li>
+							<li><a href="#">Connexion</a></li>
+						</ul>
+					</div>
+					<div id="menu_membres">
+						<p>Work in progress</p>
+				</nav>	
+			</div>
+
+			{% block body%}
+			{% endblock %}
+		
+		</div>
+
+
+		<footer>
+			<div id="footer">
+				<p> © Smart Reminder, tout droit réservés. © </p>
+			</div>		
+		</footer>
+	
+	</div>
+
+</body>
+</html>

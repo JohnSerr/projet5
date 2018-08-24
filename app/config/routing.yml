@@ -1,3 +1,15 @@
+p5_user:
+    resource: "@P5UserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+p5_todolist:
+    resource: "@P5TodolistBundle/Resources/config/routing.yml"
+    prefix:   /
+
+p5_core:
+    resource: "@P5CoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation

@@ -1,0 +1,5 @@
+
+
+p5_core_home:
+    path:     /home
+    defaults: { _controller: P5CoreBundle:Home:home }

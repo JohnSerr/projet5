@@ -1,0 +1,3 @@
+p5_todolist_homepage:
+    path:     /
+    defaults: { _controller: P5TodolistBundle:Default:index }
