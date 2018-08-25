@@ -5,7 +5,6 @@ p5_todolist_view:
     requirements:
         membreid: \d+
 
-
 p5_todolist_add:
     path:    /home/todolist/{membreid}/add
     defaults:
@@ -13,12 +12,18 @@ p5_todolist_add:
     requirements:
         membreid: \d+  
     
-
-
 p5_todolist_edit: 
     path: /home/todolist/{membreid}/edit/{id}
     defaults:
       _controller: P5TodolistBundle:todolist:edit
+    requirements:
+        membreid: \d+
+        id: \d+
+
+p5_todolist_delete:
+    path: /home/todolist/{membreid}/delete/{id}
+    defaults:
+      _controller: P5TodolistBundle:todolist:delete
     requirements:
         membreid: \d+
         id: \d+

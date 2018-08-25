@@ -65,8 +65,7 @@ class todolist
 
     public function __contruct()
     {
-        $this->date = new \
-        DateTime();
+        $this->date = new DateTime();
     }
 
     /**
