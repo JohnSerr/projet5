@@ -21,7 +21,19 @@ class todolistController extends Controller
 {
 	public function indexAction()
 	{
-		return $this->render("P5TodolistBundle:todolist:view.html.twig");
+		$em =$this->getDoctrine()->getManager();
+
+		$entirelist = $em->getRepository("P5TodolistBundle:todolist")->findBy(
+
+			array("authorid" => 1),	
+			array("date" => "desc"),
+			null,
+			0
+		);
+
+		return $this->render("P5TodolistBundle:todolist:view.html.twig", array(
+			"entirelist" => $entirelist
+		));
 		
 	}
 

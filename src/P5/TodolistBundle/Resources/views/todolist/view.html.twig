@@ -2,12 +2,25 @@
 
 {% block p5todolist_body %}
 
+<table>
 	<tr>
 		<th>Titre</th>
-		<th>Statut</th>
 		<th>To Do</th>
 		<th>Date limite</th>
 		<th>Option</th>
 	</tr>
+
+{% for remind in entirelist %}
+
+	<tr>
+		<td>{{remind.title}}</td>
+		<td>{{remind.content}}</td>
+		<td>{{remind.dateofend|date("d-m-Y")}}</td>
+		<td>Bouton</td>
+	</tr>	
+
+{% endfor %} 
+
+</table>
 
 {% endblock %}
