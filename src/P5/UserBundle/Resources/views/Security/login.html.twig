@@ -1,0 +1,25 @@
+{% extends "P5CoreBundle::layout.html.twig" %}
+
+{% block body %}
+
+{% if error %}
+
+<div id="errorlogin">{{error.message}}</div>
+
+{% endif %}
+
+<div id="loginform">	
+	<form method="post" action="{{ path('login_check') }}">
+		<label for="username">Identfiant : </label>
+		<br>
+		<input type="text" name="username" value= "{{ last_username}}" >
+		<br>
+		<label for="password">Mot de passe : </label>
+		<br>
+		<input type="text" name="password">
+		<br>
+		<input type="submit" name="connect" value="Connexion">	
+	</form>
+</div>
+
+{% endblock %}

@@ -13,3 +13,14 @@ p5_core:
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+login:
+    path: /home/login
+    defaults: 
+        _controller: P5UserBundle:Security:login
+
+login_check:
+    path: /home/login_check
+
+logout:
+    path: /home/logout
