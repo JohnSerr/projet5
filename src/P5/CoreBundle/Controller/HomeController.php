@@ -11,6 +11,6 @@ class HomeController extends Controller
 {
 	public function homeAction()
     {
-        return $this->render("P5CoreBundle:Home:home.html.twig");
+    	return $this->render("P5CoreBundle:Home:home.html.twig");
     }
 }
