@@ -24,3 +24,4 @@ login_check:
 
 logout:
     path: /home/logout
+    

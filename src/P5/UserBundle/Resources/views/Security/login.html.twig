@@ -12,11 +12,11 @@
 	<form method="post" action="{{ path('login_check') }}">
 		<label for="username">Identfiant : </label>
 		<br>
-		<input type="text" name="username" value= "{{ last_username}}" >
+		<input type="text" name="_username" value= "{{ last_username}}" >
 		<br>
 		<label for="password">Mot de passe : </label>
 		<br>
-		<input type="text" name="password">
+		<input type="password" name="_password">
 		<br>
 		<input type="submit" name="connect" value="Connexion">	
 	</form>
