@@ -6,8 +6,8 @@ security:
     P5\UserBundle\Entity\User: plaintext
 
   role_hierarchy:
-      ROLE_MEMBRE:       ROLE_USER
-      ROLE_SUPER_ADMIN: [ROLE_MEMBRE, ROLE_ALLOWED_TO_SWITCH]
+      ROLE_MEMBER:       ROLE_USER
+      ROLE_SUPER_ADMIN: [ROLE_MEMBER, ROLE_ALLOWED_TO_SWITCH]
 
   providers:
       principal:

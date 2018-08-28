@@ -9,34 +9,45 @@ use P5\TodolistBundle\Form\todolistType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 
 class todolistController extends Controller
 {
-	public function indexAction()
+	/**
+	 * @Security("has_role('ROLE_MEMBER')")
+	 */
+	public function indexAction(Request $request)
 	{
+		
+        $user = $this->getUser();
+		$userid = $user->getId();
+
 		$em =$this->getDoctrine()->getManager();
 
 		$entirelist = $em->getRepository("P5TodolistBundle:todolist")->findBy(
-
-			array("authorid" => 1),	
-			array("date" => "desc"),
-			null,
-			0
+		array("authorid" => $userid),	
+		array("date" => "desc"),
+		null,
+		0
 		);
 
 		return $this->render("P5TodolistBundle:todolist:view.html.twig", array(
-			"entirelist" => $entirelist
+		"entirelist" => $entirelist
 		));
-		
 	}
 
+	/**
+	 * @Security("has_role('ROLE_MEMBER')")
+	 */
 	public function addAction(Request $request)
 	{
 		$todo = new todolist();
@@ -72,6 +83,9 @@ class todolistController extends Controller
 
 	}
 
+	/**
+	 * @Security("has_role('ROLE_MEMBER')")
+	 */
 	public function editAction($id, Request $request)
 	{
 
@@ -111,6 +125,9 @@ class todolistController extends Controller
 	    ));
 	}
 	
+	/**
+	 * @Security("has_role('ROLE_MEMBER')")
+	 */
 	public function deleteAction($id, Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();

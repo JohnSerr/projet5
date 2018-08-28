@@ -32,8 +32,17 @@
 							<li><a href="{{ path('login') }}">Connexion</a></li>
 						</ul>
 					</div>
+
+					{% if is_granted('ROLE_MEMBER') %}
+
 					<div id="menu_membres">
-						<p>Work in progress</p>
+						<ul>
+							<li><a href="{{ path('p5_todolist_view')}}">Ma Todolist</a></li>
+							<li><a href="{{ path('p5_todolist_add')}}">Ajouter un rappel</a></li>
+							<li><a>Editer mon profil</a></li>
+							<li><a href="{{path('logout')}}">Déconnexion</a></li>
+						</ul>
+					{% endif %}	
 				</nav>	
 			</div>
 
