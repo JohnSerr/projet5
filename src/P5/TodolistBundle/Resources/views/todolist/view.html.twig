@@ -16,7 +16,7 @@
 		<td>{{remind.title}}</td>
 		<td>{{remind.content}}</td>
 		<td>{{remind.dateofend|date("d-m-Y")}}</td>
-		<td>Bouton</td>
+		<td><a href="{{ path('p5_todolist_edit', {'id' : remind.id }) }} ">Editer</a> <a href="{{ path('p5_todolist_delete', {'id' : remind.id }) }} ">Supprimer</a></td>
 	</tr>	
 
 {% endfor %} 
