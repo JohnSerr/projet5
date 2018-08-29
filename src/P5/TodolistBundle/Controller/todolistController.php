@@ -178,11 +178,13 @@ class todolistController extends Controller
 				$em->remove($todo);
 				$em->flush();
 
-				return $this->redirectToroute("p5_core_home");				
+				return $this->redirectToroute("p5_todolist_view");				
 
 			}
 
-		return $this->render("P5TodolistBundle:todolist:delete.html.twig");
+		return $this->render("P5TodolistBundle:todolist:delete.html.twig", array(
+			"todo" => $todo
+		));
 
 	}
 
