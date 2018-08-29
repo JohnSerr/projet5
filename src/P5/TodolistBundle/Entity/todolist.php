@@ -13,6 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
 class todolist
 {
     /**
+     * @ORM\ManyToOne(targetEntity="P5\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+    */
+    private $user;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -55,13 +61,6 @@ class todolist
      * @ORM\Column(name="dateofend", type="datetime", nullable=true)
      */
     private $dateofend;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="authorid", type="integer")
-     */
-    private $authorid;
 
     public function __contruct()
     {
@@ -199,27 +198,26 @@ class todolist
     }
 
     /**
-     * Set authorid
+     * Set user
      *
-     * @param integer $authorid
+     * @param \P5\UserBundle\Entity\User $user
      *
      * @return todolist
      */
-    public function setAuthorid($authorid)
+    public function setUser(\P5\UserBundle\Entity\User $user)
     {
-        $this->authorid = $authorid;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get authorid
+     * Get user
      *
-     * @return int
+     * @return \P5\UserBundle\Entity\User
      */
-    public function getAuthorid()
+    public function getUser()
     {
-        return $this->authorid;
+        return $this->user;
     }
 }
-

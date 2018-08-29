@@ -25,16 +25,23 @@ class todolistController extends Controller
 	/**
 	 * @Security("has_role('ROLE_MEMBER')")
 	 */
-	public function indexAction(Request $request)
+		public function indexAction(Request $request)
 	{
-		
+		/* On récupère l'id du membre connecté*/
+
         $user = $this->getUser();
 		$userid = $user->getId();
 
+		/*On récupère l'utilisateur*/		
+ 
 		$em =$this->getDoctrine()->getManager();
 
+		$useroflist = $em->getRepository("P5UserBundle:User")->find($userid);
+
+		/*On récupère tout les rappels lié a cet utilisateur*/
+
 		$entirelist = $em->getRepository("P5TodolistBundle:todolist")->findBy(
-		array("authorid" => $userid),	
+		array("user" => $useroflist),	
 		array("date" => "desc"),
 		null,
 		0
@@ -50,12 +57,9 @@ class todolistController extends Controller
 	 */
 	public function addAction(Request $request)
 	{
+
 		$todo = new todolist();
-
-		$todo->setAuthor("Default");
-		$todo->setAuthorid(1);
-		$todo->setDate(new \Datetime());
-
+		
 		$formBuilder = $this->get("form.factory")->createBuilder(todolistType::class, $todo);
 		
 		$addform = $formBuilder->getForm();
@@ -63,15 +67,33 @@ class todolistController extends Controller
 			if($request->isMethod("POST")) {
 
 				$addform->handleRequest($request);
+                    
+                    /*On vérifie la validité du formulaire*/
 
 					if($addform->isValid()) {
 
-						$em = $this->getDoctrine()->getManager();
-                        $em->persist($todo);
-						$em->flush();
-						$request->getSession()->getFlashBag()->add('notice', 'Ajouté à la liste');
+					/* On récupère l'id du membre connecté*/
+
+        			$user = $this->getUser();
+					$userid = $user->getId();
+
+					/*On récupère l'utilisateur*/		
+ 
+					$em =$this->getDoctrine()->getManager();
+					$useraddlist = $em->getRepository("P5UserBundle:User")->find($userid);
+					$author = $useraddlist->getUsername();
+
+					/* On "set" 3 attributs*/
+					$todo->setUser($useraddlist);
+					$todo->setAuthor($author);
+					$todo->setDate(new \Datetime());
+
+						
+                    $em->persist($todo);
+					$em->flush();
+					$request->getSession()->getFlashBag()->add('notice', 'Ajouté à la liste');
 					
-						return $this->redirectToroute("p5_core_home");
+					return $this->redirectToroute("p5_todolist_view");
 					}
 			}
 
@@ -93,16 +115,22 @@ class todolistController extends Controller
 
 		$todo = $em->getRepository("P5TodolistBundle:todolist")->find($id);
 
+
 		if($todo === NULL) {
 
 			throw new NotFoundHttpException ("Cette ligne n'existe pas.");
 
-		}
+		} 
 
+		$author = $todo->getUser();
+		$authorid = $author->getId();
+		$user = $this->getUser();
+		$userid = $user->getId();
 
-		$formBuilder = $this->get("form.factory")->createBuilder(todolistType::class, $todo);
+		if ($userid == $authorid) {
 
-		$editform = $formBuilder->getForm();
+			$formBuilder = $this->get("form.factory")->createBuilder(todolistType::class, $todo);
+			$editform = $formBuilder->getForm();
 
 			if($request->isMethod("POST")) {
 
@@ -112,17 +140,18 @@ class todolistController extends Controller
 
 					$em->flush();
 
-					$request->getSession()->getFlashBag()->add('notice', 'La liste a été éditée');
-
-					return $this->redirectToroute("p5_core_home");
-
+					return $this->redirectToroute("p5_todolist_view");
 				}	
 
 			}
 			
-		return $this->render("P5TodolistBundle:todolist:edit.html.twig", array(
-		"form" => $editform->createView()
-	    ));
+			return $this->render("P5TodolistBundle:todolist:edit.html.twig", array(
+			"form" => $editform->createView()
+	    	));
+		
+		} else {
+			throw new AccessDeniedException("Acces Denied");
+		} 
 	}
 	
 	/**
@@ -138,6 +167,11 @@ class todolistController extends Controller
 
 			throw new NotFoundHttpException("Ce rappel n'existe pas, inutile de le supprimer !");		
 		}
+
+			$author = $todo->getUser();
+			$authorid = $author->getId();
+			$user = $this->getUser();
+			$userid = $user->getId();
 
 			if($request->isMethod("POST")) {
 

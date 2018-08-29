@@ -19,8 +19,7 @@ class todolistType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add("date", DateType::class)
-                ->add("title",TextType::class )
+        $builder->add("title",TextType::class )
                 ->add("content", TextareaType::class)
                 ->add("dateofend", DateType::class)
                 ->add("Envoyer", SubmitType::class)
