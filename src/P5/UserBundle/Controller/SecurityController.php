@@ -4,6 +4,8 @@ namespace P5\UserBundle\Controller;
 
 use P5\UserBundle\Entity\User;
 use P5\UserBundle\Form\UserType;
+use P5\UserBundle\Form\ChangePasswordType;
+use P5\UserBundle\Form\Model\ChangePassword;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -13,6 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 class SecurityController extends Controller
 {
@@ -57,5 +61,49 @@ class SecurityController extends Controller
   	));
   }
 
+
+  /**
+	* @Security("has_role('ROLE_MEMBER')")
+  */
+  public function resetpasswordAction(Request $request)
+  {
+  	 	
+		
+		$editpass = new ChangePassword();
+
+  	 	$formbuilder = $this->get("form.factory")->createBuilder(changePasswordType::class, $editpass);
+
+  	 	$changeform = $formbuilder->getForm();
+
+  	 		if($request->isMethod("POST")) {
+
+  	 			$changeform->handleRequest($request);
+
+  	 			if($changeform->isValid()) {
+
+					$pass = $changeform["newpassword"]->getData();
+
+  	 				$em = $this->getDoctrine()->getManager();
+  	 				
+  	 				$user = $this->getUser();
+  	 				
+					$member = $em->getRepository('P5UserBundle:User')->find($user->getId($user));
+  	 				
+  	 				$encoder = $this->get('security.encoder_factory')->getEncoder($member);
+
+  	 				$newpass = $encoder->encodePassword($pass, $member->getSalt());
+
+  	 				$member->setPassword($newpass);
+					$em->flush();
+
+  	 				return $this->redirectToRoute("p5_core_home");
+
+  	 			}
+  	 		}
+
+  	    return $this->render('P5UserBundle:Security:changepasswordview.html.twig', array(
+  	    	'changeform'=> $changeform->createView()
+  	    ));  
+  }
 
 }

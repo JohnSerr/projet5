@@ -1,3 +1,7 @@
 p5_user_inscription:
     path:     /home/inscription
     defaults: { _controller: P5UserBundle:Security:inscription }
+
+p5_user_editpass:
+    path:    /home/profil/edit
+    defaults: {_controller: P5UserBundle:Security:resetpassword}
