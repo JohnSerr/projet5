@@ -18,7 +18,14 @@ class ChangePasswordType extends AbstractType
 {
 	 public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('oldpassword', PasswordType::class)
+        $builder->add('oldpassword', PasswordType::class, array(
+        'constraints' => array(
+        new \Symfony\Component\Security\Core\Validator\Constraints\UserPassword(),
+    	),
+    	'mapped' => false,
+    	'required' => true,
+    	'label' => 'Ancien mot de passe',	
+		))
                 ->add('newpassword', RepeatedType::class, array(
                     "type" => PasswordType::class,
                     "invalid_message" => "Les mots de passe doivent correspondre.",
