@@ -3,6 +3,7 @@
 namespace P5\TodolistBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * todolist
@@ -38,6 +39,7 @@ class todolist
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank(message="Il doit y avoir un titre.")
      */
     private $title;
 
@@ -52,6 +54,7 @@ class todolist
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank(message="Le contenu ne peut pas être vide.")
      */
     private $content;
 

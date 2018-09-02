@@ -4,12 +4,21 @@ namespace P5\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="P5\UserBundle\Repository\UserRepository")
+ * @UniqueEntity(
+    * fields={"username"},
+    * message="Cet utilisateur existe déjà."
+    * )
+ * @UniqueEntity(
+    * fields={"email"},
+    * message="Cette addresse e-mail est déjà utilisée."
+    * )
  */
 class User implements UserInterface
 {
@@ -26,6 +35,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255, unique=true)
+     * @Assert\Length(min=3, minMessage="Votre nom d'utilisateur doit contenir au moins 3 caractères.")
      */
     private $username;
 
@@ -33,6 +43,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\Length(min=6, minMessage="Votre mot de passe doit contenir au moins 6 caractères.")
      */
     private $password;
 
@@ -54,6 +65,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Assert\Email(checkMX=false, message="Cette adresse n'existe pas.")
      */
     private $email;
 

@@ -91,8 +91,7 @@ class todolistController extends Controller
 						
                     $em->persist($todo);
 					$em->flush();
-					$request->getSession()->getFlashBag()->add('notice', 'Ajouté à la liste');
-					
+										
 					return $this->redirectToroute("p5_todolist_view");
 					}
 			}
