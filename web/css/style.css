@@ -64,7 +64,7 @@ color: white;
 font-weight: bold;
 }
 
-/*----------content------------*/
+/*----------HOME------------*/
 
 #introduction, #weather
 {
@@ -96,6 +96,22 @@ font-weight: bold;
 	margin-right: 5px;
 	margin-bottom: 5px;
 }
+
+
+
+/*-----------Inscription-----------------*/
+
+
+/*------------Connexion--------------*/
+
+
+/*---------------Ajouter un rappel---------*/
+
+#addremind h3
+{
+	margin-top: 0;
+}
+
 
 /*----------footer--------------*/
 

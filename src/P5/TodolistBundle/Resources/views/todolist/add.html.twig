@@ -1,11 +1,11 @@
 {% extends 'P5TodolistBundle::layout.html.twig' %}
 
 {% block p5todolist_body %}
+<div id="addremind">
+	<h3>Ajouter un rappel</h3>
 
-<h3>Ajouter un rappel</h3>
-
-<div>
-{{ form(form) }}
+	<div class="col-sm-6">
+		{{ form(form) }}
+	</div>
 </div>
-
 {% endblock %}

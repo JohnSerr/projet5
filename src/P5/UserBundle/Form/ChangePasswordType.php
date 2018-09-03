@@ -24,7 +24,7 @@ class ChangePasswordType extends AbstractType
     	),
     	'mapped' => false,
     	'required' => true,
-    	'label' => 'Ancien mot de passe',	
+    	'label' => 'Ancien mot de passe :',	
 		))
                 ->add('newpassword', RepeatedType::class, array(
                     "type" => PasswordType::class,
