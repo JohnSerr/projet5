@@ -2,13 +2,17 @@
 
 {% block body %}
 
-<div id="welcome">
-	<div id="introduction">
+<div id="welcome" class="col-sm-10">
+	<div id="introduction" class="col-sm-8">
 		<h2>Bienvenue sur Smart Reminder</h2>
-		<p>Inscrivez-vous pour avoir accès à un espace membre où vous pourrez gérer votre Todolist!</p>
-		<p>Celle-ci pourra vous rappeler ce que vous avez à faire dans la journée !</p>
+		<img src="{{ asset('images/todo.png') }}" alt="bloc-note" id="notepad">
+		<p>Inscrivez-vous pour avoir accès à un espace membre où vous pourrez gérer votre Todolist !
+			Celle-ci pourra vous rappeler ce que vous avez à faire dans la journée !
+		</p>
+		<p>Fini les oublis, les soucis, facilitez vous la vie !
+		<p>Avec Smart Reminder, vous pouvez créer votre propre todolist et programmer une date limite, ou pas ! Vous recevrez une notification le jour programmé !</p>
 	</div>
-	<div id="weather">
+	<div id="weather" class="col-sm-3">
 		API weather à contruire.
 	</div>
 </div>

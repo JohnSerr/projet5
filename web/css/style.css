@@ -1,5 +1,129 @@
-h1
+/*-------- Start ------------ */
+html
 {
-	background-color: grey;
+	position: relative;
+    min-height: 100%;
+}
+body
+{
+	padding: 0;
+	margin:0;
+	background: #e6ecf0;
+	padding-bottom: 90px;
+  	
+	
+}
+
+.container
+{
+	width: 90%;
+}
+
+
+/*--------Header------------------*/
+
+#header
+{
+	background: #563d7c;
+	text-align: center;
+	border-radius: 0px 0px 5px 5px;
+	margin-left: -15px;
+	margin-right: -15px;
+}
+
+#header h1
+{
 	color: white;
+
+}
+
+#header p
+{
+	font-style: italic;
+	color: white;
+}
+
+/*------- Menu -------- */
+
+#fullmenu
+{
+	background: #563d7c;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.nav
+{
+	text-align: center;
+}
+
+
+li a
+{
+color: white;
+font-weight: bold;
+}
+
+/*----------content------------*/
+
+#introduction, #weather
+{
+	background: white;
+	margin-bottom: 10px;
+	
+}
+
+#introduction
+{
+	margin-right: 5px;
+}
+
+#introduction h2
+{
+	text-align: center;
+}
+
+#introduction p
+{
+	text-align: justify-all;
+}
+
+#notepad
+{
+	height: 100px;
+	width:100px;
+	float:left;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+/*----------footer--------------*/
+
+
+#footer
+{
+	position: absolute;
+	background: #563d7c;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.0em;
+	margin-bottom: 0;
+	margin-top: 20px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+}
+
+#footer p
+{
+	padding:20px;
+	margin: 0;
+}
+
+#footer a
+{
+	color: white;
+	text-decoration: underline;
 }

@@ -4,43 +4,48 @@
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>{% block title %}Smart Reminder{% endblock %}</title>
+
 	{% block stylesheets %}
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	{% endblock %}
 
 </head>
 <body>
 	<div class="container">
 		<header>
-			<div id="header">
+			<div id="header" class="jumbotron">
 				<h1>Smart Reminder</h1>
+				<hr>
 				<p>
 					La Todolist qui vous rapelle qu'elle existe !
-				</p>
+				</p>	
 			</div>	
 		</header>
-
+	<div class="row">
 		<div id="welcome_container">
-			<div id="fullmenu">
+			<div id="fullmenu" class="col-sm-2">
 				<nav>
 					<div id="main_menu">
-						<ul>
-							<li><a href="{{ path('p5_core_home') }}">Accueil</a></li></li>
-							<li><a href="{{path('p5_user_inscription') }}">Inscription</a></li>
-							<li><a href="{{ path('login') }}">Connexion</a></li>
+						<ul class="nav">
+							<li class="nav-item"><a class="nav-link" href="{{ path('p5_core_home') }}">Accueil</a></li></li>
+							<li class="nav-item"><a class="nav-link" href="{{path('p5_user_inscription') }}">Inscription</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{ path('login') }}">Connexion</a></li>
 						</ul>
 					</div>
 
 					{% if is_granted('ROLE_MEMBER') %}
+					<hr id="splitmenu">
 
 					<div id="menu_membres">
-						<ul>
-							<li><a href="{{ path('p5_todolist_view')}}">Ma Todolist</a></li>
-							<li><a href="{{ path('p5_todolist_add')}}">Ajouter un rappel</a></li>
-							<li><a href="{{ path('p5_user_editpass')}}">Modifier password</a></li>
-							<li><a href="{{path('logout')}}">Déconnexion</a></li>
+						<ul class="nav">
+							<li class="nav-item"><a class="nav-link" href="{{ path('p5_todolist_view')}}">Ma Todolist</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{ path('p5_todolist_add')}}">Ajouter un rappel</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{ path('p5_user_editpass')}}">Modifier password</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{path('logout')}}">Déconnexion</a></li>
 						</ul>
 					{% endif %}	
 				</nav>	
@@ -50,15 +55,15 @@
 			{% endblock %}
 		
 		</div>
-
-
+	</div>
+</div>
 		<footer>
-			<div id="footer">
-				<p> © Smart Reminder, tout droit réservés. © </p>
+			<div id="footer" class="xs-col-12">
+				<p> © Smart Reminder, tout droit réservés. <a href="#">mentions légales</a> © </p>
 			</div>		
 		</footer>
 	
-	</div>
+	
 
 </body>
 </html>
