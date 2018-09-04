@@ -2,26 +2,28 @@
 
 {% block body %}
 
-{% if error %}
+<div id="loginblock" class="col-sm-8">
 
-<div id="errorlogin">{{error.message}}</div>
+	{% if error %}
 
-{% endif %}
+	<div id="errorlogin">{{error.message}}</div>
 
-<h3>Connexion</h2>
+	{% endif %}
 
-<div id="loginform">	
-	<form method="post" action="{{ path('login_check') }}">
-		<label for="username">Identfiant : </label>
-		<br>
-		<input type="text" name="_username" value= "{{last_username}}" >
-		<br>
-		<label for="password">Mot de passe : </label>
-		<br>
-		<input type="password" name="_password">
-		<br>
-		<input type="submit" name="connect" value="Connexion">	
-	</form>
+	<h3>Connexion</h3>
+
+	<div id="loginform" >	
+		<form method="post" action="{{ path('login_check') }}">
+			<label for="username">Identfiant : </label>
+			<br>
+			<input type="text" name="_username" value= "{{last_username}}" >
+			<br>
+			<label for="password">Mot de passe : </label>
+			<br>
+			<input type="password" name="_password">
+			<br>
+			<input type="submit" name="connect" value="Connexion" id="connect">	
+		</form>
+	</div>
 </div>
-
 {% endblock %}

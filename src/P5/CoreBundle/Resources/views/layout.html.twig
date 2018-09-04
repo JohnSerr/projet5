@@ -18,7 +18,7 @@
 	<div class="container">
 		<header>
 			<div id="header" class="jumbotron">
-				<h1>Smart Reminder</h1>
+				<h1><i class="far fa-list-alt"></i> Smart Reminder</h1>
 				<hr>
 				<p>
 					La Todolist qui vous rapelle qu'elle existe !
@@ -31,9 +31,9 @@
 				<nav>
 					<div id="main_menu">
 						<ul class="nav">
-							<li class="nav-item"><a class="nav-link" href="{{ path('p5_core_home') }}">Accueil</a></li></li>
-							<li class="nav-item"><a class="nav-link" href="{{path('p5_user_inscription') }}">Inscription</a></li>
-							<li class="nav-item"><a class="nav-link" href="{{ path('login') }}">Connexion</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{ path('p5_core_home') }}"><i class="fas fa-home"></i> Accueil</a></li></li>
+							<li class="nav-item"><a class="nav-link" href="{{path('p5_user_inscription') }}"><i class="fas fa-address-book"></i> Inscription</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{ path('login') }}"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
 						</ul>
 					</div>
 
@@ -42,10 +42,10 @@
 
 					<div id="menu_membres">
 						<ul class="nav">
-							<li class="nav-item"><a class="nav-link" href="{{ path('p5_todolist_view')}}">Ma Todolist</a></li>
-							<li class="nav-item"><a class="nav-link" href="{{ path('p5_todolist_add')}}">Ajouter un rappel</a></li>
-							<li class="nav-item"><a class="nav-link" href="{{ path('p5_user_editpass')}}">Modifier password</a></li>
-							<li class="nav-item"><a class="nav-link" href="{{path('logout')}}">Déconnexion</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{ path('p5_todolist_view')}}"><i class="far fa-list-alt"></i> Ma Todolist</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{ path('p5_todolist_add')}}"><i class="fas fa-plus"></i> Ajouter un rappel</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{ path('p5_user_editpass')}}"><i class="fas fa-key"></i> Modifier password</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{path('logout')}}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
 						</ul>
 					{% endif %}	
 				</nav>	

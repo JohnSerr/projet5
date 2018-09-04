@@ -52,7 +52,7 @@ class SecurityController extends Controller
   					$em->persist($newmember);
   					$em->flush();
 
-  					return $this->redirectToRoute('p5_core_home');
+  					return $this->redirectToRoute('login');
   				}	
   		}
   

@@ -100,17 +100,82 @@ font-weight: bold;
 
 
 /*-----------Inscription-----------------*/
+#inscriptionblock
+{
+	text-align: center;
+}
 
-
+#inscriptionblock h3
+{
+	margin-top: 10px;
+	margin-bottom: 30px;
+	font-weight: bolder;
+}
 /*------------Connexion--------------*/
 
+#loginblock
+{
+	text-align: center;
+}
 
-/*---------------Ajouter un rappel---------*/
+#loginblock h3
+{
+	margin-top: 10px;
+	margin-bottom: 30px;
+	font-weight: bolder;
+}
 
-#addremind h3
+#connect
+{
+	margin-top: 15px;
+	color: #333;
+	background-color: #fff;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+#connect:hover
+{
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+}
+
+/*---------------Todolist layout--------------*/
+
+
+#separate
+{
+	border-color: white;
+}
+
+/*---------------Add a remind---------*/
+
+#addremind, #editremind
+{
+	text-align: center;
+}
+
+#addremind h3, #editremind h3
 {
 	margin-top: 0;
+	font-weight: bold;
 }
+
+
+/*-----------------Edit a remind------------------*/
+
+
+
+/*--------------- Delete a remind-------------------------*/
+
+#warning_delete
+{
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
 
 
 /*----------footer--------------*/

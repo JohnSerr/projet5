@@ -4,28 +4,33 @@
 
 <h3>Supprimer un rappel</h3>
 
-<table>
-	<tr>
-		<th>Titre</th>
-		<th>Ajouté le</th>
-		<th>To Do</th>
-		<th>Date limite</th>
-	</tr>
-	<tr>
-		<td>{{todo.title}}</td>
-		<td>{{todo.date|date("d-m-Y")}}</td>
-		<td>{{todo.content}}</td>
-		<td>{{todo.dateofend|date("d-m-Y")}}</td>
-	</tr>	
+<div class="table-responsive">
+	<table class="table table-striped">
+		<tr>
+			<th>Titre</th>
+			<th>Ajouté le</th>
+			<th>To Do</th>
+			<th>Date limite</th>
+		</tr>
+		<tr>
+			<td>{{todo.title}}</td>
+			<td>{{todo.date|date("d-m-Y")}}</td>
+			<td>{{todo.content}}</td>
+			<td>{{todo.dateofend|date("d-m-Y")}}</td>
+		</tr>	
 
-</table>
-
-<div>
-	<p>Êtes vous certain de vouloir supprimer ce rappel ?<p>
+	</table>
 </div>
+	
+	<hr id="separate" />
+
+	<div id="warning_delete">
+		<p>Êtes-vous certain de vouloir supprimer ce rappel ?<p>
+	</div>
 
 <form action="{{path('p5_todolist_delete', {'id' : todo.id }) }}" method="post">
-	<input type="submit" name="supprimer" value="Supprimer">
+	<a href="{{path('p5_todolist_view')}}" role="button" class="btn btn-info"><i class="fas fa-angle-left"></i> Revenir à la liste</a>
+	<input type="submit" name="supprimer" value="Supprimer" class="btn btn-danger">
 </form>
 
 {% endblock %}
