@@ -46,7 +46,14 @@ class SecurityController extends Controller
   				if($inscriptionform->isValid()) {
 
   					$newmember->setRoles(array('ROLE_MEMBER'));
-  					$newmember->setSalt("");
+  					$newmember->setSalt("sha512");
+
+  					$pass = $newmember->getPassword();
+  					$encoder = $this->get('security.encoder_factory')->getEncoder($newmember);
+
+  					$encodedpass = $encoder->encodePassword($pass, $newmember->getSalt());
+
+  					$newmember->setPassword($encodedpass);
 
   					$em =$this->getDoctrine()->getManager();
   					$em->persist($newmember);
