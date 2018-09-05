@@ -2,6 +2,8 @@
 
 namespace P5\TodolistBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * todolistRepository
  *
@@ -10,4 +12,24 @@ namespace P5\TodolistBundle\Repository;
  */
 class todolistRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getTodolist($page, $nbPerPage, $member) {
+
+		$query = $this->createQueryBuilder('a');
+
+		$query
+			  ->where('a.user = :user')
+			  ->setParameter('user', $member)
+		;
+
+		$query
+				->setFirstResult(($page - 1) * $nbPerPage)
+				->setMaxResults($nbPerPage)
+		;
+
+		return new Paginator($query, true);
+
+	}
+
 }
+
+

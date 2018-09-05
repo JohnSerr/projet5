@@ -1,3 +1,6 @@
+parameters:
+    nbPerPage: 5
+    
 services:
 #    p5_todolist.example:
 #        class: P5\TodolistBundle\Example

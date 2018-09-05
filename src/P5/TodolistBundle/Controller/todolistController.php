@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 
 
@@ -25,8 +26,15 @@ class todolistController extends Controller
 	/**
 	 * @Security("has_role('ROLE_MEMBER')")
 	 */
-		public function indexAction(Request $request)
+		public function indexAction(Request $request, $page)
 	{
+		 
+    if ($page < 1) {
+    
+      throw $this->createNotFoundException("La page ".$page." n'existe pas.");
+    
+    }
+
 		/* On récupère l'id du membre connecté*/
 
         $user = $this->getUser();
@@ -40,15 +48,17 @@ class todolistController extends Controller
 
 		/*On récupère tout les rappels lié a cet utilisateur*/
 
-		$entirelist = $em->getRepository("P5TodolistBundle:todolist")->findBy(
-		array("user" => $useroflist),	
-		array("date" => "desc"),
-		null,
-		0
-		);
+		$nbPerPages = $this->container->getParameter('NbPerPage');
+		$entirelist = $em->getRepository("P5TodolistBundle:todolist")->getTodolist($page, $nbPerPages, $useroflist);
+
+		/*On calcule le nombre de page total*/
+
+		$nbPages = ceil(count($entirelist) / $nbPerPages);
 
 		return $this->render("P5TodolistBundle:todolist:view.html.twig", array(
-		"entirelist" => $entirelist
+		"entirelist" => $entirelist,
+		"nbPages" => $nbPages,
+		"page" => $page
 		));
 	}
 

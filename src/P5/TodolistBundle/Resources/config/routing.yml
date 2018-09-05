@@ -1,7 +1,10 @@
 p5_todolist_view:
-    path:    /home/todolist
+    path:    /home/todolist/{page}
     defaults:  
         _controller: P5TodolistBundle:todolist:index
+        page: 1
+    requirements:
+        page: \d+    
    
 p5_todolist_add:
     path:    /home/todolist/add
