@@ -17,7 +17,14 @@
 			<td>{{remind.title}}</td>
 			<td>{{remind.date|date("d-m-Y")}}</td>
 			<td>{{remind.content}}</td>
-			<td>{{remind.dateofend|date("d-m-Y")}}</td>
+			
+			<td>
+				{% if remind.remind == false %}
+					Non programmé.
+				{% else %}
+					{{remind.dateofend|date("d-m-Y")}}
+				{% endif %}
+			</td>
 			<td><a href="{{ path('p5_todolist_edit', {'id' : remind.id }) }}" class="btn btn-warning btn-sm" role="button"><i class="fas fa-pen"></i> Editer</a> 
 				<a href="{{ path('p5_todolist_delete', {'id' : remind.id }) }} " class="btn btn-danger btn-sm" role="button"><i class="fas fa-trash-alt"></i> Supprimer</a></td>
 		</tr>	

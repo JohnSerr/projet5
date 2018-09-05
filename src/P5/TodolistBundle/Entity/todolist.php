@@ -65,6 +65,14 @@ class todolist
      */
     private $dateofend;
 
+
+    /**
+    * @var boolean
+    *
+    * @ORM\Column(name="remind", type="boolean" , nullable=false )
+    */
+    private $remind = false;
+
     public function __contruct()
     {
         $this->date = new DateTime();
@@ -222,5 +230,29 @@ class todolist
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set remind
+     *
+     * @param boolean $remind
+     *
+     * @return todolist
+     */
+    public function setRemind($remind)
+    {
+        $this->remind = $remind;
+
+        return $this;
+    }
+
+    /**
+     * Get remind
+     *
+     * @return boolean
+     */
+    public function getRemind()
+    {
+        return $this->remind;
     }
 }

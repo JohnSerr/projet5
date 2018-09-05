@@ -23,7 +23,11 @@ class todolistType extends AbstractType
         "label" => "Titre :"    
         ))
                 ->add("content", TextareaType::class, array(
-        "label" => "Tâche à effectuer :"            
+        "label" => "Tâche à effectuer :"     
+        ))
+                ->add("remind", CheckboxType::class, array(
+        "label" => "Programmer un rappel (Une notification vous sera envoyée à la date choisie.)",
+        "required" => false
         ))
                 ->add("dateofend", DateType::class, array(
         "label" => "Date de rappel :"           
