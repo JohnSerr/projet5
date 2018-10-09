@@ -20,7 +20,7 @@ class RemindCommand extends ContainerAwareCommand
 
 	}
 
-	protected function execute(InputInterface $input, OutputInterface $output) {
+	protected function execute(InputInterface $input, OutputInterface $output, \Swift_Mailer $mailer) {
 
 		$container = $this->getContainer();
 
@@ -29,22 +29,30 @@ class RemindCommand extends ContainerAwareCommand
 		$datenow = new \DateTime('00:00:00');
 		
 		$listtoremind = $em->getRepository("P5TodolistBundle:todolist")->findBy(
-		array('dateofend' => $datenow,
-			  'remind' => true
-			 ),
-		null,
-		null,
-		0
-		);
-
+			array('dateofend' => $datenow,
+			 	'remind' => true
+				),
+			null,
+			null,
+			0
+			);
 
 		foreach($listtoremind as $remindtomail) {
 			
-			 $mail = $remindtomail->getUser()->getEmail();
+			$author = $remindtomail->getUser()->getAuthor();
+			$mail = $remindtomail->getUser()->getEmail();
 
-			 echo $mail;
+			$message = (new \Swift_Message("Rappel"))
+				->setFrom("smartreminder@ephemere-opc.ovh")
+				->setTo($mail)
+				->setBody(
+					$this->render('Emails/remind.html.twig',
+					array("author" => $author)					
+					),
+					"text/html"
+				);
 
+			$mailer->send($message);
 		}
-
 	}
 }
