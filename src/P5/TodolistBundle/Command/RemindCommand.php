@@ -26,10 +26,12 @@ class RemindCommand extends ContainerAwareCommand
 
 		$em = $container->get('doctrine.orm.entity_manager');
 
-		$datenow = new \DateTime('NOW');
+		$datenow = new \DateTime('00:00:00');
 		
 		$listtoremind = $em->getRepository("P5TodolistBundle:todolist")->findBy(
-		array('dateofend' => $datenow),
+		array('dateofend' => $datenow,
+			  'remind' => true
+			 ),
 		null,
 		null,
 		0
@@ -39,6 +41,8 @@ class RemindCommand extends ContainerAwareCommand
 		foreach($listtoremind as $remindtomail) {
 			
 			 $mail = $remindtomail->getUser()->getEmail();
+
+			 echo $mail;
 
 		}
 
