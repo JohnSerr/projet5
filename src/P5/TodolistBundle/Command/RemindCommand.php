@@ -41,7 +41,7 @@ class RemindCommand extends ContainerAwareCommand
 			
 			$author = $remindtomail->getUser()->getUsername();
 			$mail = $remindtomail->getUser()->getEmail();
-			
+
 			$message = (new \Swift_Message("Rappel"))
 				->setFrom("smartreminder@ephemere-opc.ovh")
 				->setTo($mail)
