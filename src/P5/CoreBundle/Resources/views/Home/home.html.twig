@@ -14,9 +14,10 @@
 	</div>
 	<div id="weather" class="col-sm-3">
 		<h3>Indicateur météo</h3>
-		<p>Code postal :  <input type="text" name="zipcode" id="zipcode"> <button type="button" class="btn btn-info" id="validzip">Valider</button></p>
+		<p id="ziplabel">Code postal :  <input type="text" name="zipcode" id="zipcode"></p>
+		 <button type="button" class="btn btn-info" id="validzip">Valider</button>
 
-		<ul>
+		<ul id="weatherlist">
 			<li>Ville : <span id="city"></span></li>
 			<li>Température : <span id="temperature"></span> °C</li>
 			<li>Tendance : <span id="tendance"></span></li>
