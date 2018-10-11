@@ -25,34 +25,24 @@ class todolistController extends Controller
 {
 	/**
 	 * @Security("has_role('ROLE_MEMBER')")
-	 */
-		public function indexAction(Request $request, $page)
+	*/
+	public function indexAction(Request $request, $page)
 	{
 		 
-    if ($page < 1) {
-    
-      throw $this->createNotFoundException("La page ".$page." n'existe pas.");
-    
-    }
+    	if ($page < 1) {   
+        	throw $this->createNotFoundException("La page ".$page." n'existe pas.");
+    	}
 
 		/* On récupère l'id du membre connecté*/
-
         $user = $this->getUser();
 		$userid = $user->getId();
-
-		/*On récupère l'utilisateur*/		
- 
+		/*On récupère l'utilisateur*/		 
 		$em =$this->getDoctrine()->getManager();
-
 		$useroflist = $em->getRepository("P5UserBundle:User")->find($userid);
-
 		/*On récupère tout les rappels lié a cet utilisateur*/
-
 		$nbPerPages = $this->container->getParameter('NbPerPage');
 		$entirelist = $em->getRepository("P5TodolistBundle:todolist")->getTodolist($page, $nbPerPages, $useroflist);
-
 		/*On calcule le nombre de page total*/
-
 		$nbPages = ceil(count($entirelist) / $nbPerPages);
 
 		return $this->render("P5TodolistBundle:todolist:view.html.twig", array(
@@ -69,49 +59,33 @@ class todolistController extends Controller
 	{
 
 		$todo = new todolist();
-		
-		$formBuilder = $this->get("form.factory")->createBuilder(todolistType::class, $todo);
-		
+		$formBuilder = $this->get("form.factory")->createBuilder(todolistType::class, $todo);		
 		$addform = $formBuilder->getForm();
+		$addform->handleRequest($request);       
 
-			if($request->isMethod("POST")) {
-
-				$addform->handleRequest($request);
-                    
-                    /*On vérifie la validité du formulaire*/
-
-					if($addform->isValid()) {
-
-					/* On récupère l'id du membre connecté*/
-
-        			$user = $this->getUser();
-					$userid = $user->getId();
-
-					/*On récupère l'utilisateur*/		
- 
-					$em =$this->getDoctrine()->getManager();
-					$useraddlist = $em->getRepository("P5UserBundle:User")->find($userid);
-					$author = $useraddlist->getUsername();
-
-					/* On "set" 3 attributs*/
-					$todo->setUser($useraddlist);
-					$todo->setAuthor($author);
-					$todo->setDate(new \Datetime());
-
+            /*On vérifie la validité du formulaire*/
+			if($addform->isValid() && $addform->isSubmitted()) {
+				/* On récupère l'id du membre connecté*/
+        		$user = $this->getUser();
+				$userid = $user->getId();
+				/*On récupère l'utilisateur*/		
+ 				$em =$this->getDoctrine()->getManager();
+				$useraddlist = $em->getRepository("P5UserBundle:User")->find($userid);
+				$author = $useraddlist->getUsername();
+				/* On "set" 3 attributs*/
+				$todo->setUser($useraddlist);
+				$todo->setAuthor($author);
+				$todo->setDate(new \Datetime());
 						
-                    $em->persist($todo);
-					$em->flush();
+                $em->persist($todo);
+				$em->flush();
 										
-					return $this->redirectToroute("p5_todolist_view");
-					}
-			}
-
+				return $this->redirectToroute("p5_todolist_view");
+			}	
 
 		return $this->render("P5TodolistBundle:todolist:add.html.twig", array(
 			"form" => $addform->createView(), 
 		));
-
-
 	}
 
 	/**
@@ -121,14 +95,10 @@ class todolistController extends Controller
 	{
 
 		$em = $this->getDoctrine()->getManager();
-
 		$todo = $em->getRepository("P5TodolistBundle:todolist")->find($id);
 
-
 		if($todo === NULL) {
-
 			throw new NotFoundHttpException ("Cette ligne n'existe pas.");
-
 		} 
 
 		$author = $todo->getUser();
@@ -140,24 +110,15 @@ class todolistController extends Controller
 
 			$formBuilder = $this->get("form.factory")->createBuilder(todolistType::class, $todo);
 			$editform = $formBuilder->getForm();
+			$editform->handleRequest($request);
 
-			if($request->isMethod("POST")) {
-
-				$editform->handleRequest($request);
-
-				if($editform->isValid()) {
-
+				if($editform->isValid() && $editform->isSubmitted()) {
 					$em->flush();
-
-					return $this->redirectToroute("p5_todolist_view");
-				}	
-
-			}
-			
-			return $this->render("P5TodolistBundle:todolist:edit.html.twig", array(
-			"form" => $editform->createView()
-	    	));
-		
+					return $this->redirectToroute("p5_todolist_view");				
+				} 				
+				return $this->render("P5TodolistBundle:todolist:edit.html.twig", array(
+				"form" => $editform->createView()
+	    		));
 		} else {
 			throw new AccessDeniedException("Acces Denied");
 		} 
@@ -169,32 +130,26 @@ class todolistController extends Controller
 	public function deleteAction($id, Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
-
 		$todo = $em->getRepository("P5TodolistBundle:todolist")->find($id);
 
 		if($todo === NULL) {
-
 			throw new NotFoundHttpException("Ce rappel n'existe pas, inutile de le supprimer !");		
 		}
 
-			$author = $todo->getUser();
-			$authorid = $author->getId();
-			$user = $this->getUser();
-			$userid = $user->getId();
+		$author = $todo->getUser();
+		$authorid = $author->getId();
+		$user = $this->getUser();
+		$userid = $user->getId();
 
+		if($userid == $authorid) {	
 			if($request->isMethod("POST")) {
-
 				$em->remove($todo);
 				$em->flush();
-
 				return $this->redirectToroute("p5_todolist_view");				
-
 			}
-
+		}	
 		return $this->render("P5TodolistBundle:todolist:delete.html.twig", array(
 			"todo" => $todo
 		));
-
 	}
-
 }
