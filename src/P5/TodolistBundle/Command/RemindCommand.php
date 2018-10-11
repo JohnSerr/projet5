@@ -12,22 +12,18 @@ use P5\UserBundle\Entity\User;
 
 class RemindCommand extends ContainerAwareCommand
 {
-	protected function configure() {
-
+	protected function configure() 
+	{
 		$this->setName('remindmail');
 		$this->setDescription('alerte l\'utilisateur par mail d\'un rappel programmé');
 		$this->setHelp('Cmd créer pour cron d\'envoi quotidien de mail de rappel');
-
 	}
 
-	protected function execute(InputInterface $input, OutputInterface $output) {
-
+	protected function execute(InputInterface $input, OutputInterface $output) 
+	{
 		$container = $this->getContainer();
-
 		$em = $container->get('doctrine.orm.entity_manager');
-
 		$datenow = new \DateTime('00:00:00');
-		
 		$listtoremind = $em->getRepository("P5TodolistBundle:todolist")->findBy(
 			array('dateofend' => $datenow,
 			 	'remind' => true
@@ -38,10 +34,9 @@ class RemindCommand extends ContainerAwareCommand
 			);
 
 		foreach($listtoremind as $remindtomail) {
-			
+
 			$author = $remindtomail->getUser()->getUsername();
 			$mail = $remindtomail->getUser()->getEmail();
-
 			$message = (new \Swift_Message("Rappel"))
 				->setFrom("smartreminder@ephemere-opc.ovh")
 				->setTo($mail)
@@ -49,8 +44,7 @@ class RemindCommand extends ContainerAwareCommand
 					$container->get("templating")->render('P5TodolistBundle:Emails:remind.html.twig',
 					array("author" => $author)					
 					),
-					"text/html"
-				);
+					"text/html");
 			$mailer = $container->get("mailer");
 			$mailer->send($message);
 		}

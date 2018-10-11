@@ -32,8 +32,7 @@ class todolistType extends AbstractType
                 ->add("dateofend", DateType::class, array(
         "label" => "Date de rappel :"           
                 ))
-                ->add("Envoyer", SubmitType::class)
-        ;
+                ->add("Envoyer", SubmitType::class);
     }
 
     /**
