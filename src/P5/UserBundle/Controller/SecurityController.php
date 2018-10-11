@@ -106,14 +106,12 @@ class SecurityController extends Controller
 
           if($form->isValid() && $form->isSubmitted()) {
               $em = $this->getDoctrine()->getManager();
-              $mail = $form['resetmail']->getData();
-              $member = $em->getRepository('P5UserBundle:User')->getUserByMail($mail);
-
+              $member = $em->getRepository('P5UserBundle:User')->getUserByMail($form['resetmail']->getData());
                   if($member !== null) {
                     $ticket = uniqid();
                     $message = (new \Swift_Message('Reset Password'))
                             ->setFrom("smartreminder@ephemere-opc.ovh")
-                            ->setTo($mail)
+                            ->setTo($member->getEmail())
                             ->setBody(
                               $this->render('P5UserBundle:Emails:mailresetpassword.html.twig',
                                      array("ticket" => $ticket)),

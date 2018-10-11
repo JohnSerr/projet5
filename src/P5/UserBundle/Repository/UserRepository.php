@@ -18,6 +18,6 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 		   ->setParameter('mail', $mail);
 
 		return $qb->getQuery() 	
-				  ->getResult();
+				  ->getOneOrNullResult();
 	}			  
 }
