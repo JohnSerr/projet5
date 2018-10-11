@@ -67,7 +67,7 @@ class SecurityController extends Controller
   /**
 	* @Security("has_role('ROLE_MEMBER')")
   */
-  public function resetpasswordAction(Request $request)
+  public function changepasswordAction(Request $request)
   {	
 
 		$editpass = new ChangePassword();
