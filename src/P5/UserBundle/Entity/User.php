@@ -69,6 +69,14 @@ class User implements UserInterface
      */
     private $email;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ticket_password", type="string", length=255, nullable=true,unique=true)
+     *
+     */
+    private $ticket_password;
+
 
     /**
      * Get id
@@ -205,5 +213,28 @@ class User implements UserInterface
   
   }
 
-}
 
+    /**
+     * Set ticketPassword.
+     *
+     * @param string|null $ticketPassword
+     *
+     * @return User
+     */
+    public function setTicketPassword($ticketPassword = null)
+    {
+        $this->ticket_password = $ticketPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get ticketPassword.
+     *
+     * @return string|null
+     */
+    public function getTicketPassword()
+    {
+        return $this->ticket_password;
+    }
+}

@@ -14,10 +14,10 @@ class todolistRepository extends \Doctrine\ORM\EntityRepository
 {
 	public function getTodolist($page, $nbPerPage, $member) {
 
-		$query = $this->createQueryBuilder('a');
+		$query = $this->createQueryBuilder('t');
 
 		$query
-			  ->where('a.user = :user')
+			  ->where('t.user = :user')
 			  ->setParameter('user', $member)
 		;
 

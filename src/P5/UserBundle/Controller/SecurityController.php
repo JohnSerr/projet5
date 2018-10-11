@@ -5,7 +5,9 @@ namespace P5\UserBundle\Controller;
 use P5\UserBundle\Entity\User;
 use P5\UserBundle\Form\UserType;
 use P5\UserBundle\Form\ChangePasswordType;
+use P5\UserBundle\Form\ResetMailType;
 use P5\UserBundle\Form\Model\ChangePassword;
+use P5\UserBundle\Form\Model\ResetMail;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -67,7 +69,7 @@ class SecurityController extends Controller
   /**
 	* @Security("has_role('ROLE_MEMBER')")
   */
-  public function changepasswordAction(Request $request)
+  public function changePasswordAction(Request $request)
   {	
 
 		$editpass = new ChangePassword();
@@ -93,6 +95,40 @@ class SecurityController extends Controller
   	return $this->render('P5UserBundle:Security:changepasswordview.html.twig', array(
   	    	'changeform'=> $changeform->createView()
   	));  
+  }
+
+  public function resetPasswordAction(Request $request)
+  {
+      $membermail = new ResetMail();
+      $formbuilder = $this->get('form.factory')->createBuilder(ResetMailType::class, $membermail);
+      $form = $formbuilder->getForm();
+      $form->handleRequest($request);
+
+          if($form->isValid() && $form->isSubmitted()) {
+              $em = $this->getDoctrine()->getManager();
+              $mail = $form['resetmail']->getData();
+              $member = $em->getRepository('P5UserBundle:User')->getUserByMail($mail);
+
+                  if($member !== null) {
+                    $ticket = uniqid();
+                    $message = (new \Swift_Message('Reset Password'))
+                            ->setFrom("smartreminder@ephemere-opc.ovh")
+                            ->setTo($mail)
+                            ->setBody(
+                              $this->render('P5UserBundle:Emails:mailresetpassword.html.twig',
+                                     array("ticket" => $ticket)),
+                              'text/html'
+                            );
+
+                    $mailer = $this->get("mailer");
+                    $mailer->send($message);
+
+                    return $this->redirectToRoute('login');                   
+                  }
+          }
+    return $this->render('P5UserBundle:Security:resetpassword.html.twig', array(
+           'form' => $form->createView()    
+    ));
   }
 
 }

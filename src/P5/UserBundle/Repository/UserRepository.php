@@ -10,4 +10,14 @@ namespace P5\UserBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getUserByMail($mail)
+	{
+		$qb = $this->createQueryBuilder('u');
+
+		$qb->where('u.email = :mail')
+		   ->setParameter('mail', $mail);
+
+		return $qb->getQuery() 	
+				  ->getResult();
+	}			  
 }
