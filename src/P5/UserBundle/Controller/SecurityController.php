@@ -17,9 +17,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-
 class SecurityController extends Controller
 {
+
 	public function loginAction(Request $request)
   {
    
@@ -37,80 +37,61 @@ class SecurityController extends Controller
 
   public function inscriptionAction(Request $request)
   {
-  		$newmember = new User();
-  		$formbuilder = $this->get("form.factory")->createBuilder(UserType::class, $newmember);
-  		$inscriptionform = $formbuilder->getForm();
+  	
+    $newmember = new User();
+  	$formbuilder = $this->get("form.factory")->createBuilder(UserType::class, $newmember);
+  	$inscriptionform = $formbuilder->getForm();		
+  	$inscriptionform->handleRequest($request);
 
-  		if($request->isMethod("POST")){
-  			$inscriptionform->handleRequest($request);
-  				if($inscriptionform->isValid()) {
+  	   	if($inscriptionform->isValid() && $inscriptionform->isSubmitted()) {
 
-  					$newmember->setRoles(array('ROLE_MEMBER'));
+  			 	 	$newmember->setRoles(array('ROLE_MEMBER'));
   					$newmember->setSalt("sha512");
-
   					$pass = $newmember->getPassword();
   					$encoder = $this->get('security.encoder_factory')->getEncoder($newmember);
-
   					$encodedpass = $encoder->encodePassword($pass, $newmember->getSalt());
-
   					$newmember->setPassword($encodedpass);
 
-  					$em =$this->getDoctrine()->getManager();
+  					$em = $this->getDoctrine()->getManager();
   					$em->persist($newmember);
   					$em->flush();
 
   					return $this->redirectToRoute('login');
-  				}	
-  		}
-  
+  			}	
+  		
   	return $this->render('P5UserBundle:Security:inscription.html.twig' , array(
   		"inscriptionform" => $inscriptionform->createView()
   	));
   }
 
-
   /**
 	* @Security("has_role('ROLE_MEMBER')")
   */
   public function resetpasswordAction(Request $request)
-  {
-  	 	
-		
+  {	
+
 		$editpass = new ChangePassword();
+  	$formbuilder = $this->get("form.factory")->createBuilder(changePasswordType::class, $editpass);
+   	$changeform = $formbuilder->getForm();
+  	$changeform->handleRequest($request);
 
-  	 	$formbuilder = $this->get("form.factory")->createBuilder(changePasswordType::class, $editpass);
+  	 	  if($changeform->isValid() && $changeform->isSubmitted()) {
 
-  	 	$changeform = $formbuilder->getForm();
+				    $pass = $changeform["newpassword"]->getData();
+        	  $em = $this->getDoctrine()->getManager();		
+  	 			  $user = $this->getUser();		
+					  $member = $em->getRepository('P5UserBundle:User')->find($user->getId($user));		
+  	 			  $encoder = $this->get('security.encoder_factory')->getEncoder($member);
+  	 			  $newpass = $encoder->encodePassword($pass, $member->getSalt());
+        	  $member->setPassword($newpass);
 
-  	 		if($request->isMethod("POST")) {
-
-  	 			$changeform->handleRequest($request);
-
-  	 			if($changeform->isValid()) {
-
-					$pass = $changeform["newpassword"]->getData();
-
-  	 				$em = $this->getDoctrine()->getManager();
-  	 				
-  	 				$user = $this->getUser();
-  	 				
-					$member = $em->getRepository('P5UserBundle:User')->find($user->getId($user));
-  	 				
-  	 				$encoder = $this->get('security.encoder_factory')->getEncoder($member);
-
-  	 				$newpass = $encoder->encodePassword($pass, $member->getSalt());
-
-  	 				$member->setPassword($newpass);
-					$em->flush();
+					  $em->flush();
 
   	 				return $this->redirectToRoute("p5_core_home");
-
   	 			}
-  	 		}
-
-  	    return $this->render('P5UserBundle:Security:changepasswordview.html.twig', array(
+  	 	
+  	return $this->render('P5UserBundle:Security:changepasswordview.html.twig', array(
   	    	'changeform'=> $changeform->createView()
-  	    ));  
+  	));  
   }
-
 }
