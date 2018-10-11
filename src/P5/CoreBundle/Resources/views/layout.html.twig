@@ -21,7 +21,7 @@
 				<h1><i class="far fa-list-alt"></i> Smart Reminder</h1>
 				<hr>
 				<p>
-					La Todolist qui vous rapelle qu'elle existe !
+					La Todolist qui vous rappelle qu'elle existe !
 				</p>	
 			</div>	
 		</header>
@@ -32,8 +32,10 @@
 					<div id="main_menu">
 						<ul class="nav">
 							<li class="nav-item"><a class="nav-link" href="{{ path('p5_core_home') }}"><i class="fas fa-home"></i> Accueil</a></li></li>
+						{% if not is_granted('ROLE_MEMBER') %}
 							<li class="nav-item"><a class="nav-link" href="{{path('p5_user_inscription') }}"><i class="fas fa-address-book"></i> Inscription</a></li>
 							<li class="nav-item"><a class="nav-link" href="{{ path('login') }}"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
+						{% endif %}
 						</ul>
 					</div>
 

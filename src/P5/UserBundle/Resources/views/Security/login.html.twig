@@ -16,13 +16,13 @@
 		<form method="post" action="{{ path('login_check') }}">
 			<label for="username">Identfiant : </label>
 			<br>
-			<input type="text" name="_username" value= "{{last_username}}" >
+			<input type="text" name="_username" value= "{{last_username}}" class="form-control" id="username" >
 			<br>
 			<label for="password">Mot de passe : </label>
 			<br>
-			<input type="password" name="_password">
+			<input type="password" name="_password" class="form-control" id="password">
 			<br>
-			<input type="submit" name="connect" value="Connexion" id="connect">	
+			<input type="submit" name="connect" value="Connexion" id="connect" >	
 		</form>
 	</div>
 </div>
