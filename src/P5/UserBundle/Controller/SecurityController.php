@@ -6,6 +6,7 @@ use P5\UserBundle\Entity\User;
 use P5\UserBundle\Form\UserType;
 use P5\UserBundle\Form\ChangePasswordType;
 use P5\UserBundle\Form\ResetMailType;
+use P5\UserBundle\Form\SetNewPasswordUserType;
 use P5\UserBundle\Form\Model\ChangePassword;
 use P5\UserBundle\Form\Model\ResetMail;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 class SecurityController extends Controller
 {
@@ -109,6 +111,7 @@ class SecurityController extends Controller
               $member = $em->getRepository('P5UserBundle:User')->getUserByMail($form['resetmail']->getData());
                   if($member !== null) {
                     $ticket = uniqid();
+                    $member->setTicketPassword($ticket);
                     $message = (new \Swift_Message('Reset Password'))
                             ->setFrom("smartreminder@ephemere-opc.ovh")
                             ->setTo($member->getEmail())
@@ -117,7 +120,7 @@ class SecurityController extends Controller
                                      array("ticket" => $ticket)),
                               'text/html'
                             );
-
+                    $em->flush();
                     $mailer = $this->get("mailer");
                     $mailer->send($message);
 
@@ -127,6 +130,40 @@ class SecurityController extends Controller
     return $this->render('P5UserBundle:Security:resetpassword.html.twig', array(
            'form' => $form->createView()    
     ));
+  }
+
+  public function setNewPasswordAction(Request $request, $ticket)
+  {
+
+    $em = $this->getDoctrine()->getManager();
+    $member = $em->getRepository("P5UserBundle:User")->getUserByTicket($ticket);
+
+        if($member !== null) {
+
+            $formbuilder = $this->get('form.factory')->createBuilder(SetNewPasswordUserType::class, $member);
+            $form = $formbuilder->getForm();
+            $form->handleRequest($request);
+
+                if($form->isValid() && $form->isSubmitted()) {
+                    $plainpass = $form["password"]->getData();
+                    $encoder = $this->get('security.encoder_factory')->getEncoder($member);
+                    $newpass = $encoder->encodePassword($plainpass, $member->getSalt());
+                    $member->setPassword($newpass);
+                    $member->setTicketPassword(null);
+
+                    $em->flush();
+
+                    return $this->redirectToRoute('login');   
+                
+                } else
+
+            return $this->render('P5UserBundle:Security:setnewpassword.html.twig', array( 'form' => $form->createView()));  
+
+      } else {
+
+       throw new AccessDeniedException("Acces Denied");
+
+      }
   }
 
 }

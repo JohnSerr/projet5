@@ -19,5 +19,16 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 
 		return $qb->getQuery() 	
 				  ->getOneOrNullResult();
-	}			  
+	}
+
+	public function getUserByTicket($ticket)
+	{
+		$qb = $this->createQueryBuilder('u');
+
+		$qb->where('u.ticket_password = :ticket_password')
+		   ->setParameter('ticket_password' , $ticket);
+
+		return $qb->getQuery()
+				  ->getOneOrNullResult();
+	}
 }

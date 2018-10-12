@@ -9,3 +9,9 @@ p5_user_editpass:
 p5_user_resetpass:
     path: /home/resetpass
     defaults: {_controller: P5UserBundle:Security:resetPassword}
+
+p5_user_setnewpassword:
+    path: /home/newpassword/{ticket}
+    defaults: {_controller: P5UserBundle:Security:setNewPassword}
+    requirements:
+        ticket: \w{13}

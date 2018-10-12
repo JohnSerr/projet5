@@ -203,7 +203,7 @@ font-weight: bold;
 }
 
 /*-----------------forgot password--------------*/
-#forgot
+#forgot, #newpass
 {
 	text-align: center;
 	margin-top: 5px;
