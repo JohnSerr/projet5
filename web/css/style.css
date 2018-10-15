@@ -221,7 +221,20 @@ font-weight: bold;
 	transform: translateX(-50%);
 }
 
+/*--------------------- Set New Password ---------------------*/
 
+
+#p5_userbundle_user
+{
+	text-align: center;
+}
+
+#p5_userbundle_user_password_first, #p5_userbundle_user_password_second
+{
+	width: 150px;
+	margin-left: 50%;
+ 	transform: translateX(-50%);
+}
 
 /*---------------Todolist layout--------------*/
 
