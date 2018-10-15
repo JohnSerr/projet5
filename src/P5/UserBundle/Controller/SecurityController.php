@@ -124,7 +124,13 @@ class SecurityController extends Controller
                     $mailer = $this->get("mailer");
                     $mailer->send($message);
 
-                    return $this->redirectToRoute('login');                   
+                    $this->addFlash('notice', 'Un mail a été envoyé à cette adresse !');
+
+                    return $this->redirectToRoute('p5_user_resetpass');                   
+                  } else {
+
+                    $this->addFlash('notice', 'Un mail a été envoyé à cette adresse !');
+                    return $this->redirectToRoute('p5_user_resetpass');
                   }
           }
     return $this->render('P5UserBundle:Security:resetpassword.html.twig', array(

@@ -202,7 +202,7 @@ font-weight: bold;
 	text-decoration: underline;
 }
 
-/*-----------------forgot password--------------*/
+/*-----------------reset password--------------*/
 #forgot, #newpass
 {
 	text-align: center;
@@ -221,6 +221,11 @@ font-weight: bold;
 	transform: translateX(-50%);
 }
 
+#flashmail
+{
+	text-align: center;
+	font-weight: bolder;
+}
 /*--------------------- Set New Password ---------------------*/
 
 
@@ -229,9 +234,9 @@ font-weight: bold;
 	text-align: center;
 }
 
-#p5_userbundle_user_password_first, #p5_userbundle_user_password_second
+#p5_userbundle_user_password_first, #p5_userbundle_user_password_second, #p5_userbundle_user_email, #p5_userbundle_user_username
 {
-	width: 150px;
+	width: 250px;
 	margin-left: 50%;
  	transform: translateX(-50%);
 }
