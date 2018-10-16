@@ -6,11 +6,11 @@ $("#validzip").click( function() {
 
 		error: function() {
 
-			$("#city").html("error");
-			$("#temperature").html("error");
-			$("#tendance").html("error");
-			$("#humidity").html("error");
-			$("#wind").html("error");
+			$("#city").html("Code Postal invalide !");
+			$("#temperature").html("Code Postal invalide !");
+			$("#tendance").html("Code Postal invalide !");
+			$("#humidity").html("Code Postal invalide !");
+			$("#wind").html("Code Postal invalide !");
 		},
 
 		dataType: "jsonp",
@@ -18,10 +18,10 @@ $("#validzip").click( function() {
 		success: function(data) {
 
 			$("#city").html(data.name); 
-			$("#temperature").html(Math.floor(data.main.temp - 273));
+			$("#temperature").html(Math.floor(data.main.temp - 273) + " °C");
 			$("#tendance").html(data.weather[0].main);
-			$("#humidity").html(data.main.humidity);
-			$("#wind").html(data.wind.speed);
+			$("#humidity").html(data.main.humidity + " %");
+			$("#wind").html(data.wind.speed + " m/s");
 		},
 
 			type: "GET"	

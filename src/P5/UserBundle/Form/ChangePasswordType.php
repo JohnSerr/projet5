@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
 class ChangePasswordType extends AbstractType
 {
@@ -20,7 +21,9 @@ class ChangePasswordType extends AbstractType
     {
         $builder->add('oldpassword', PasswordType::class, array(
         'constraints' => array(
-        new \Symfony\Component\Security\Core\Validator\Constraints\UserPassword(),
+        new UserPassword(array(
+                'message' => 'Votre mot de passe actuel est différent !',
+            )), 
     	),
     	'mapped' => false,
     	'required' => true,

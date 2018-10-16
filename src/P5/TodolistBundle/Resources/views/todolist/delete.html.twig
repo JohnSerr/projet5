@@ -4,19 +4,19 @@
 
 <h3>Supprimer un rappel</h3>
 
-<div class="table-responsive">
+<div>
 	<table class="table table-striped">
 		<tr>
-			<th>Titre</th>
-			<th>Ajouté le</th>
-			<th>To Do</th>
-			<th>Date limite</th>
+			<th class="col-md-3">Titre</th>
+			<th class="col-md-3" id="hidedate">Ajouté le</th>
+			<th class="col-md-3">To Do</th>
+			<th class="col-md-3">Date limite</th>
 		</tr>
 		<tr>
-			<td>{{todo.title}}</td>
-			<td>{{todo.date|date("d-m-Y")}}</td>
-			<td>{{todo.content}}</td>
-			<td>{{todo.dateofend|date("d-m-Y")}}</td>
+			<td class="hidetitle wrap">{{todo.title}}</td>
+			<td class="adddate wrap">{{todo.date|date("d-m-Y")}}</td>
+			<td class="wrap" id="content">{{todo.content}}</td>
+			<td class="wrap">{{todo.dateofend|date("d-m-Y")}}</td>
 		</tr>	
 
 	</table>
