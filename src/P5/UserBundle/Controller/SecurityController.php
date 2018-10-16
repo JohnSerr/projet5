@@ -60,7 +60,9 @@ class SecurityController extends Controller
   					$em->persist($newmember);
   					$em->flush();
 
-  					return $this->redirectToRoute('login');
+            $this->addFlash('notice', 'Votre inscription a été prise en compte.');
+
+  					return $this->redirectToRoute('p5_user_inscription');
   			}	
   		
   	return $this->render('P5UserBundle:Security:inscription.html.twig' , array(

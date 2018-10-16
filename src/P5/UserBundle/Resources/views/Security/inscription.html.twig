@@ -2,10 +2,13 @@
 
 {% block body %}
 <div class="col-sm-8" id="inscriptionblock">
-
-<h3>Inscription</h3>
-
-{{form(inscriptionform)}}
-
+	<h3>Inscription</h3>
+	{{form(inscriptionform)}}
+	
+	{% for message in app.flashes('notice') %}
+			<div class="alert alert-success" id="flashmail">
+       	 		{{ message }}
+    		</div>
+		{% endfor %}
 </div>
 {% endblock %}
