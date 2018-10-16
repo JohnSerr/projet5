@@ -4,8 +4,8 @@
 <div>
 	<table class="table table-striped">
 		<tr>
-			<th class="col-md-3" id="hidetitle">Titre</th>
-			<th class="col-md-3" id="hide">Ajouté le</th>
+			<th class="col-md-3">Titre</th>
+			<th class="col-md-3" id="hidedate">Ajouté le</th>
 			<th class="col-md-3">To Do</th>
 			<th class="col-md-3">Date de rappel</th>
 			<th class="col-md-3">Options</th>
@@ -14,7 +14,7 @@
 		{% for remind in entirelist %}
 
 		<tr>
-			<td class="hidetitle2 wrap">{{remind.title}}</td>
+			<td class="hidetitle wrap">{{remind.title}}</td>
 			<td class="adddate wrap">{{remind.date|date("d-m-Y")}}</td>
 			<td class="wrap" id="content">{{remind.content}}</td>
 			

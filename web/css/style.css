@@ -368,15 +368,7 @@ th, td
 
 @media all and (max-width: 480px)
 {
-	.adddate, #hide
-	{
-		display: none;
-	}
-}
-
-@media all and (max-width: 350px)
-{
-	.hidetitle2, #hidetitle
+	.adddate, #hidedate
 	{
 		display: none;
 	}
