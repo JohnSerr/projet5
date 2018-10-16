@@ -272,6 +272,17 @@ font-weight: bold;
 	font-weight: bold;
 }
 
+#p5_todolistbundle_todolist_title
+{
+	width: 250px;
+	margin-left: 50%;
+ 	transform: translateX(-50%);
+}
+
+#p5_todolistbundle_todolist_content
+{
+	min-height: 90px;
+}
 
 /*-----------------Edit a remind------------------*/
 
@@ -284,6 +295,30 @@ font-weight: bold;
 	font-weight: bold;
 	font-size: 1.3em;
 }
+
+
+/*----------------- Chnage Password -------------------*/
+
+
+#changepass
+{
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+#change_password
+{
+	text-align: center;
+}
+
+#change_password_oldpassword, #change_password_newpassword_first, #change_password_newpassword_second
+{
+	width: 250px;
+	margin-left: 50%;
+ 	transform: translateX(-50%);
+}
+
+
 
 
 
