@@ -257,8 +257,23 @@ font-weight: bold;
 #Edit, #Suppr
 {
 	margin-top: 2px;
+
 }
 
+table
+{
+	table-layout: fixed;
+}
+
+.wrap
+{
+	overflow-wrap:break-word;
+}
+
+th, td
+{
+	text-align: center;
+}
 /*---------------Add a remind---------*/
 
 #addremind, #editremind
@@ -320,8 +335,6 @@ font-weight: bold;
 
 
 
-
-
 /*----------footer--------------*/
 
 
@@ -361,3 +374,10 @@ font-weight: bold;
 	}
 }
 
+@media all and (max-width: 350px)
+{
+	.hidetitle2, #hidetitle
+	{
+		display: none;
+	}
+}

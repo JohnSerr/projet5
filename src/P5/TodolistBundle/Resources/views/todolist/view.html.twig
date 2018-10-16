@@ -4,29 +4,31 @@
 <div>
 	<table class="table table-striped">
 		<tr>
-			<th class="col-sm-1">Titre</th>
-			<th class="col-sm-2" id="hide">Ajouté le</th>
-			<th class="col-sm-4">To Do</th>
-			<th class="col-sm-2">Date de rappel</th>
-			<th class="col-sm-3">Options</th>
+			<th class="col-md-3" id="hidetitle">Titre</th>
+			<th class="col-md-3" id="hide">Ajouté le</th>
+			<th class="col-md-3">To Do</th>
+			<th class="col-md-3">Date de rappel</th>
+			<th class="col-md-3">Options</th>
 		</tr>
 
 		{% for remind in entirelist %}
 
 		<tr>
-			<td>{{remind.title}}</td>
-			<td class="adddate">{{remind.date|date("d-m-Y")}}</td>
-			<td>{{remind.content}}</td>
+			<td class="hidetitle2 wrap">{{remind.title}}</td>
+			<td class="adddate wrap">{{remind.date|date("d-m-Y")}}</td>
+			<td class="wrap" id="content">{{remind.content}}</td>
 			
-			<td>
+			<td class="wrap">
 				{% if remind.remind == false %}
 					Non programmé.
 				{% else %}
 					{{remind.dateofend|date("d-m-Y")}}
 				{% endif %}
 			</td>
-			<td><a href="{{ path('p5_todolist_edit', {'id' : remind.id }) }}" class="btn btn-warning btn-sm" role="button" id="Edit"><i class="fas fa-pen"></i>Editer</a> 
-				<a href="{{ path('p5_todolist_delete', {'id' : remind.id }) }} " class="btn btn-danger btn-sm" role="button" id="Suppr"><i class="fas fa-trash-alt"></i>Supprimer</a></td>
+			<td>
+				<a href="{{ path('p5_todolist_edit', {'id' : remind.id }) }}" class="btn btn-warning btn-sm" role="button" id="Edit" title="Editer"><i class="fas fa-pen"></i></a> 
+				<a href="{{ path('p5_todolist_delete', {'id' : remind.id }) }} " class="btn btn-danger btn-sm" role="button" id="Suppr" title="Supprimer"><i class="fas fa-trash-alt"></i></a>
+			</td>
 		</tr>	
 
 		{% endfor %} 
