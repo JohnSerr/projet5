@@ -249,6 +249,16 @@ font-weight: bold;
 	border-color: white;
 }
 
+.addate
+{
+	display: block;
+}
+
+#Edit, #Suppr
+{
+	margin-top: 2px;
+}
+
 /*---------------Add a remind---------*/
 
 #addremind, #editremind
@@ -307,3 +317,12 @@ font-weight: bold;
 	color: white;
 	text-decoration: underline;
 }
+
+@media all and (max-width: 480px)
+{
+	.adddate, #hide
+	{
+		display: none;
+	}
+}
+

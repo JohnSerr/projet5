@@ -1,21 +1,21 @@
 {% extends 'P5TodolistBundle::layout.html.twig' %}
 
 {% block p5todolist_body %}
-<div class="table-responsive">
+<div>
 	<table class="table table-striped">
 		<tr>
-			<th>Titre</th>
-			<th>Ajouté le</th>
-			<th>To Do</th>
-			<th>Date de rappel</th>
-			<th>Options</th>
+			<th class="col-sm-1">Titre</th>
+			<th class="col-sm-2" id="hide">Ajouté le</th>
+			<th class="col-sm-4">To Do</th>
+			<th class="col-sm-2">Date de rappel</th>
+			<th class="col-sm-3">Options</th>
 		</tr>
 
 		{% for remind in entirelist %}
 
 		<tr>
 			<td>{{remind.title}}</td>
-			<td>{{remind.date|date("d-m-Y")}}</td>
+			<td class="adddate">{{remind.date|date("d-m-Y")}}</td>
 			<td>{{remind.content}}</td>
 			
 			<td>
@@ -25,8 +25,8 @@
 					{{remind.dateofend|date("d-m-Y")}}
 				{% endif %}
 			</td>
-			<td><a href="{{ path('p5_todolist_edit', {'id' : remind.id }) }}" class="btn btn-warning btn-sm" role="button"><i class="fas fa-pen"></i> Editer</a> 
-				<a href="{{ path('p5_todolist_delete', {'id' : remind.id }) }} " class="btn btn-danger btn-sm" role="button"><i class="fas fa-trash-alt"></i> Supprimer</a></td>
+			<td><a href="{{ path('p5_todolist_edit', {'id' : remind.id }) }}" class="btn btn-warning btn-sm" role="button" id="Edit"><i class="fas fa-pen"></i>Editer</a> 
+				<a href="{{ path('p5_todolist_delete', {'id' : remind.id }) }} " class="btn btn-danger btn-sm" role="button" id="Suppr"><i class="fas fa-trash-alt"></i>Supprimer</a></td>
 		</tr>	
 
 		{% endfor %} 
